@@ -1,0 +1,57 @@
+%//==============================--@--==============================//%
+%\vspace{-1em}
+\subsection{Introdução}
+\label{subsec:intro}
+
+Um dos principais objetivos da análise de Cadeias de Markov, é a determinação das probabilidades de encontrar a cadeia em vários estados, em específicos instantes de tempo. Definimos o \textit{state probability vector} como:
+$$
+    \pmb{\pi}(k) = [\pi_1(k), \pi_2(k), \pi_3(k), \pi_4(k), \pi_5(k), \pi_6(k), \pi_7(k)]
+$$
+onde $\pi_j(k) \delequal \mathcal{P}r\{X_k=x_j\}$ no instante $k$, para o espaço de estados $\mathcal{X} = \{x_j\}$, com $j = 1,\dots,7$. E, assim, por associação natural a um sistema dinâmico, a evolução do sistema é dada pela \underline{equação de transição de estados:}
+$$
+    \pmb{\pi}(k+1) = \pmb{\pi}(k)\, \pmb{P}
+$$
+em que $\pmb{P}$ é matriz de transição (estocástica) que condensa o comportamento do jogador no tabuleiro consoante o lançamento da moeda.
+$$
+    \begin{gathered}
+        \minipage[c]{\dimexpr0.35\linewidth-2\fboxsep-2\fboxrule\relax}
+            \centering
+            \includegraphics[width=0.6\linewidth]{img/Intro/simplifiedMonopoly.png}
+            \captionof{figure}{Tabuleiro do Monopólio simplificado. \color{gray} (Imagem: Guia\scalebox{0.7}{$^{*^**}$}).}
+        \endminipage
+    \end{gathered}
+    \qquad
+    \pmb{P}=
+    \begin{bmatrix}
+        0 & 0.5 & 0.5 & 0 & 0 & 0 & 0\\
+        0 & 0 & 0.5 & 0.5 & 0 & 0 & 0\\
+        0 & 0 & 0 & 0.5 & 0.5 & 0 & 0\\
+        0 & 0 & 0 & 0 & 0.5 & 0.5 & 0\\
+        0 & 0 & 0.5 & 0 & 0 & 0.5 & 0\\
+        0 & 0 & 0.5 & 0 & 0 & 0 & 0.5\\
+        0.5 & 0.5 & 0 & 0 & 0 & 0 & 0
+    \end{bmatrix}
+$$
+
+\noindent $\rightarrow$ \textbf{\textit{Steady-state analysis:}} Qual é a probabilidade de encontrarmos a Cadeia de Markov no estado $x_j$ \textit{"in the long run"\footnotemark[1]}? 
+$$ \pi_j = \lim_{k\to+\infty} \pi_j(k) $$
+Se $\pi_j$ existir, refere-se como \textit{steady-state}, \textit{equilibrium}, ou \textit{stationary
+state probability}. Se existir para todos os estados, definimos o \textit{stationary state probability vector} $\pmb{\pi}$.
+
+\begin{theo}[\underline{Def.:} Irredutibilidade da Cadeia de Markov\protect\cite{Geyer1992}]{def:irredutibilidade}
+    A Cadeia de Markov diz-se irredutível sse todos os estados comunicam entre si.
+\end{theo}
+\vspace{-0.5em}
+\begin{theo}[\underline{Def.:} Periodicidade dos estados\protect\cite{Cassandras-Lafortune2008}]{def:periodicidade}
+    A periodicidade do estado $x_j\in \mathcal{X}$ é: $\quad d(x_j) \delequal \gcd\{k\in\mathbb{N}^+: \pmb{P}^k(x_j,x_j)>0\} $
+    
+    \noindent$\rightarrow$ O estado $x_j$ diz-se aperiódico se $d(x_j)=1$ e periódico se $d(x_j)>1$.
+\end{theo}
+Com base nas definições supramencionadas, invocamos o \textit{\textbf{Ergodic Theorem for Primitive Chains}}\cite{MEDHI2003}, aplicável à Cadeia de Markov objetiva de estudo. \textit{Ergo}, para $k\to+\infty$, $  
+\pmb{P}^k \to \pmb{e}\, \pmb{\pi} \implies \pmb{\pi} = \pmb{\pi}\, \pmb{P} \;\land\; \pmb{\pi}\, \pmb{e} = 1$, em que $\pmb{e} = [1\: 1\: 1\: 1\: 1\: 1\: 1]^T$ e $\pmb{\pi}$ pode ser revisto como vetor próprio da matriz estocástica $\pmb{P}$, associado ao valor próprio $\lambda_0 = 1$ ($\rightarrow$ ``\textit{No other eigenvalue of $\pmb{P}$ has absolute value greater than 1.}''\cite{Luenberger1979}).
+
+Justaposto, trivialmente deduzimos (teoricamente) a \textit{equilibrium probability distribution} da Cadeia de Markov em questão:
+
+$$ \therefore \pmb{\pi} = \begin{bmatrix} 0.0455 & 0.0682 & 0.25 & 0.1591 & 0.2045 & 0.1818 & 0.0909 \end{bmatrix} $$
+%//==============================--@--==============================//%
+\footnotetext[1]{``\textit{By "long run" we mean that the system (...) is allowed to operate for a sufficiently long period of time so that the state probabilities can reach some fixed values (...)}.''\cite{Cassandras-Lafortune2008}}
